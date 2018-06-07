@@ -223,6 +223,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="bin\Debug\Store\accountdb.zip" />
+    <None Include="bin\Debug\Store\accountdb_201805.zip" />
+    <None Include="bin\Debug\Store\accountdb_201806.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -258,6 +260,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\Store\dealdb_20180607_SPEkT.xml" />
+    <Resource Include="bin\Debug\Store\dealdb_20180607_tP4OE.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
