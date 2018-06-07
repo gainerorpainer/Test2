@@ -1,200 +1,261 @@
 <?xml version="1.0"?>
 <DealDb xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Compressed>false</Compressed>
+  <IsCompressed>false</IsCompressed>
   <Deals>
     <Deal>
-      <Symbol>BNBBTC</Symbol>
+      <Id>16</Id>
+      <Symbol>ARKBTC</Symbol>
       <CurrentState>Done</CurrentState>
-      <CurrentResult>GoalsArchived</CurrentResult>
-      <Goal1SellOrder>
-        <ClientOrderId>web_b8cc8cdff32f4e4bb2b768a096cd3326</ClientOrderId>
-        <FilledOrders>
-          <long>46018756</long>
-        </FilledOrders>
-      </Goal1SellOrder>
-      <Goal2SellOrder>
-        <ClientOrderId>web_90f09d5edc734d9bbf700ac19acc46a6</ClientOrderId>
-        <FilledOrders>
-          <long>46018879</long>
-        </FilledOrders>
-      </Goal2SellOrder>
-      <CreationTime>2018-05-09T21:14:43.7602814+02:00</CreationTime>
-      <LastChangedTime xsi:nil="true" />
-      <Leftovers>0</Leftovers>
-    </Deal>
-    <Deal>
-      <Symbol>BNBBTC</Symbol>
-      <CurrentState>Done</CurrentState>
-      <CurrentResult>GoalsArchived</CurrentResult>
+      <CurrentResult>Cancelled</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>ILFIzh0dBZbY0IvsqwCEeP</ClientOrderId>
+        <ClientOrderId>n4iPuo1YcQ68QU8A6rIT6S</ClientOrderId>
         <FilledOrders>
-          <long>46140834</long>
+          <long>13328610</long>
         </FilledOrders>
       </BuyOrder>
       <Goal1SellOrder>
-        <ClientOrderId>az7r7qcesrW2FmtJODU4oD</ClientOrderId>
+        <ClientOrderId>yYquNrSlrCmW6a6ILbHxWV</ClientOrderId>
         <FilledOrders>
-          <long>46147609</long>
+          <long>13329430</long>
         </FilledOrders>
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>rbGTf74Cgb6KWtBD73BWMb</ClientOrderId>
-        <FilledOrders>
-          <long>46147626</long>
-        </FilledOrders>
+        <ClientOrderId>x11ZMHWdteuZyHThzJ2a64</ClientOrderId>
+        <FilledOrders />
       </Goal2SellOrder>
-      <CreationTime>2018-05-10T02:35:35.2572181+02:00</CreationTime>
+      <OtherSellOrder>
+        <ClientOrderId>5I5dA0OoGmCp5S717ffjUN</ClientOrderId>
+        <FilledOrders>
+          <long>13345814</long>
+        </FilledOrders>
+      </OtherSellOrder>
+      <CreationTime>2018-06-04T01:41:07.7003025+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
       <Leftovers>0</Leftovers>
+      <BuyPrice>0.0003251</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
     </Deal>
     <Deal>
-      <Symbol>LINKBTC</Symbol>
+      <Id>17</Id>
+      <Symbol>WPRBTC</Symbol>
       <CurrentState>Done</CurrentState>
       <CurrentResult>GoalsArchived</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>0YNInokB2bbgg0bYbSudDS</ClientOrderId>
+        <ClientOrderId>yVibeSgjwoLwaSydMKOdNd</ClientOrderId>
         <FilledOrders>
-          <long>17928709</long>
+          <long>7543451</long>
         </FilledOrders>
       </BuyOrder>
       <Goal1SellOrder>
-        <ClientOrderId>dQJ42ffJQMAUc7AuTNHl2C</ClientOrderId>
+        <ClientOrderId>Jw7NHJnFdRD8D2JP9g9BLX</ClientOrderId>
         <FilledOrders>
-          <long>17928849</long>
+          <long>7543458</long>
         </FilledOrders>
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>9qjbw7b6ZTihezneyXuxBV</ClientOrderId>
+        <ClientOrderId>JvzQqPojrfeqeZ2tLFVKPc</ClientOrderId>
         <FilledOrders>
-          <long>17928868</long>
+          <long>7543461</long>
         </FilledOrders>
       </Goal2SellOrder>
-      <CreationTime>2018-05-10T12:12:41.6862057+02:00</CreationTime>
+      <CreationTime>2018-06-04T09:48:27.5170503+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
       <Leftovers>0</Leftovers>
+      <BuyPrice>0.00001027</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
     </Deal>
     <Deal>
+      <Id>18</Id>
       <Symbol>SNTBTC</Symbol>
       <CurrentState>Done</CurrentState>
       <CurrentResult>Cancelled</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>sBvxDlV7JRuBThBb1siaOY</ClientOrderId>
+        <ClientOrderId>QugOFCmkInYl9qPZ74EBTn</ClientOrderId>
         <FilledOrders>
-          <long>16360244</long>
+          <long>18634289</long>
         </FilledOrders>
       </BuyOrder>
       <Goal1SellOrder>
-        <ClientOrderId>7fWzoHa4SBDD8KypyMQey2</ClientOrderId>
+        <ClientOrderId>TnPxLAsA6zBk2RSzNlAU2X</ClientOrderId>
+        <FilledOrders>
+          <long>18634290</long>
+        </FilledOrders>
+      </Goal1SellOrder>
+      <Goal2SellOrder>
+        <ClientOrderId>1C2ebGXC6NQVmgD7Mlm7El</ClientOrderId>
+        <FilledOrders />
+      </Goal2SellOrder>
+      <OtherSellOrder>
+        <ClientOrderId>WPdaq5PNFNp6VqHDnRARJk</ClientOrderId>
+        <FilledOrders>
+          <long>18647929</long>
+        </FilledOrders>
+      </OtherSellOrder>
+      <CreationTime>2018-06-05T10:14:51.3011045+02:00</CreationTime>
+      <LastChangedTime xsi:nil="true" />
+      <Leftovers>0</Leftovers>
+      <BuyPrice>0.00001257</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
+    </Deal>
+    <Deal>
+      <Id>19</Id>
+      <Symbol>BNBBTC</Symbol>
+      <CurrentState>Done</CurrentState>
+      <CurrentResult>Cancelled</CurrentResult>
+      <BuyOrder>
+        <ClientOrderId>wQS1R86x44rdyZclmjrGH1</ClientOrderId>
+        <FilledOrders>
+          <long>52841019</long>
+        </FilledOrders>
+      </BuyOrder>
+      <Goal1SellOrder>
+        <ClientOrderId>tZJuFZ6XCjX5FFLU4DkSYp</ClientOrderId>
         <FilledOrders />
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>bwhgXe7AoVNKCNNfZhgntP</ClientOrderId>
+        <ClientOrderId>8X4SCNhTKznEHJubwWVr3F</ClientOrderId>
         <FilledOrders />
       </Goal2SellOrder>
-      <CreationTime>2018-05-10T23:12:42.2060329+02:00</CreationTime>
+      <OtherSellOrder>
+        <ClientOrderId>SbKmEW9vU6gt00C1QyCOcc</ClientOrderId>
+        <FilledOrders>
+          <long>52860514</long>
+          <long>52860514</long>
+        </FilledOrders>
+      </OtherSellOrder>
+      <CreationTime>2018-06-05T15:12:44.8153727+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
-      <Leftovers>187.00000000</Leftovers>
+      <Leftovers>0</Leftovers>
+      <BuyPrice>0.0019251</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
     </Deal>
     <Deal>
-      <Symbol>ETHBTC</Symbol>
+      <Id>20</Id>
+      <Symbol>XVGBTC</Symbol>
       <CurrentState>Done</CurrentState>
       <CurrentResult>GoalsArchived</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>eeHy7jXqNdgP3ah0BhupAO</ClientOrderId>
+        <ClientOrderId>XcnpYgIlk9ielFMGzcCTsA</ClientOrderId>
         <FilledOrders>
-          <long>152148850</long>
-          <long>152148850</long>
+          <long>40448027</long>
         </FilledOrders>
       </BuyOrder>
       <Goal1SellOrder>
-        <ClientOrderId>z0bDAzAPN6Ym4SOG2hKWL0</ClientOrderId>
+        <ClientOrderId>7tnK3PqvDK2LQ4YQzxxY42</ClientOrderId>
         <FilledOrders>
-          <long>152148870</long>
+          <long>40448035</long>
         </FilledOrders>
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>JyWzbGZAxLFfAsFiNAqdH1</ClientOrderId>
+        <ClientOrderId>FfgRjVkUwUbO3txiMG3Q6k</ClientOrderId>
         <FilledOrders>
-          <long>152148874</long>
+          <long>40448036</long>
         </FilledOrders>
       </Goal2SellOrder>
-      <CreationTime>2018-05-18T15:16:20.6340794+02:00</CreationTime>
+      <CreationTime>2018-06-05T17:13:59.0656603+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
-      <Leftovers>0.01900000</Leftovers>
+      <Leftovers>0</Leftovers>
+      <BuyPrice>0.00000517</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
     </Deal>
     <Deal>
-      <Symbol>EOSBTC</Symbol>
+      <Id>21</Id>
+      <Symbol>TNTBTC</Symbol>
       <CurrentState>Done</CurrentState>
-      <CurrentResult>GoalsArchived</CurrentResult>
+      <CurrentResult>Cancelled</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>S5c5IxQ3jYj1gyYNEVFXZd</ClientOrderId>
+        <ClientOrderId>ov1zs31iCR5crmTdxAw9Yi</ClientOrderId>
+        <FilledOrders>
+          <long>13220459</long>
+        </FilledOrders>
+      </BuyOrder>
+      <Goal1SellOrder>
+        <ClientOrderId>HpoKS0I7V7U1ZPN6v6ADVi</ClientOrderId>
         <FilledOrders />
-      </BuyOrder>
-      <Goal1SellOrder>
-        <ClientOrderId>63BlfLXKLglfHM77gCMpDD</ClientOrderId>
-        <FilledOrders>
-          <long>51477616</long>
-        </FilledOrders>
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>uqNI9OkIqyZBRJFGx5d8IC</ClientOrderId>
-        <FilledOrders>
-          <long>51477621</long>
-        </FilledOrders>
+        <ClientOrderId>bFQQAPROVxi0b3nq975vfu</ClientOrderId>
+        <FilledOrders />
       </Goal2SellOrder>
-      <CreationTime>2018-05-21T15:21:20.6340794+02:00</CreationTime>
+      <OtherSellOrder>
+        <ClientOrderId>mp95D9oUihsuSNF34AIAXg</ClientOrderId>
+        <FilledOrders>
+          <long>13229339</long>
+        </FilledOrders>
+      </OtherSellOrder>
+      <CreationTime>2018-06-06T09:54:31.5294771+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
-      <Leftovers>-1.37000000</Leftovers>
+      <Leftovers>0</Leftovers>
+      <BuyPrice>0.00000954</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
     </Deal>
     <Deal>
-      <Symbol>ARKBTC</Symbol>
-      <CurrentState>Done</CurrentState>
-      <CurrentResult>NotDoneYet</CurrentResult>
-      <BuyOrder>
-        <ClientOrderId>ET70uss1xaTQioERf1uAVn</ClientOrderId>
-        <FilledOrders>
-          <long>12694796</long>
-        </FilledOrders>
-      </BuyOrder>
-      <Goal1SellOrder>
-        <ClientOrderId>35Zq1N8a684H9BCXQsFjUZ</ClientOrderId>
-        <FilledOrders>
-          <long>12694799</long>
-        </FilledOrders>
-      </Goal1SellOrder>
-      <Goal2SellOrder>
-        <ClientOrderId>wUcup0d0bwHtvPtSVywN9y</ClientOrderId>
-        <FilledOrders>
-          <long>12694805</long>
-        </FilledOrders>
-      </Goal2SellOrder>
-      <CreationTime>2018-05-21T15:21:20.6340794+02:00</CreationTime>
-      <LastChangedTime xsi:nil="true" />
-      <Leftovers>6.86000000</Leftovers>
-    </Deal>
-    <Deal>
+      <Id>22</Id>
       <Symbol>SNTBTC</Symbol>
       <CurrentState>WaitForGoal1</CurrentState>
       <CurrentResult>NotDoneYet</CurrentResult>
       <BuyOrder>
-        <ClientOrderId>RfJKeXmI0gHaCYJhumfuwv</ClientOrderId>
+        <ClientOrderId>fOoURakVL6WkUgjcQgZMZz</ClientOrderId>
         <FilledOrders>
-          <long>17905315</long>
-          <long>17905315</long>
+          <long>18768451</long>
         </FilledOrders>
       </BuyOrder>
       <Goal1SellOrder>
-        <ClientOrderId>QYU12Ds24e8RHsjKsu0fkM</ClientOrderId>
+        <ClientOrderId>6oHkgCXkW3mhCZwsNJ9mm8</ClientOrderId>
         <FilledOrders />
       </Goal1SellOrder>
       <Goal2SellOrder>
-        <ClientOrderId>4nqbERXl8ksDz4mihf68Yw</ClientOrderId>
+        <ClientOrderId>lPMSP1qmaMXvqAjGcOc2jW</ClientOrderId>
         <FilledOrders />
       </Goal2SellOrder>
-      <CreationTime>2018-05-27T19:23:09.4519164+02:00</CreationTime>
+      <CreationTime>2018-06-07T13:05:21.6620834+02:00</CreationTime>
       <LastChangedTime xsi:nil="true" />
-      <Leftovers>367.00000000</Leftovers>
+      <Leftovers>1034.964</Leftovers>
+      <BuyPrice>0</BuyPrice>
+      <Sell1Perc>0</Sell1Perc>
+      <Sell2Perc>0</Sell2Perc>
+      <SellStopLossPerc>0</SellStopLossPerc>
+    </Deal>
+    <Deal>
+      <Id>23</Id>
+      <Symbol>PPTBTC</Symbol>
+      <CurrentState>WaitForGoal1</CurrentState>
+      <CurrentResult>NotDoneYet</CurrentResult>
+      <BuyOrder>
+        <ClientOrderId>ZGKhIKLgUssStPiKvEdigA</ClientOrderId>
+        <FilledOrders>
+          <long>20531128</long>
+          <long>20531128</long>
+          <long>20531128</long>
+        </FilledOrders>
+      </BuyOrder>
+      <Goal1SellOrder>
+        <ClientOrderId>BlOFyhJFGWCX56fTnCzWSb</ClientOrderId>
+        <FilledOrders />
+      </Goal1SellOrder>
+      <Goal2SellOrder>
+        <ClientOrderId>Td5ZXNAKbvNokbkAY2TkOa</ClientOrderId>
+        <FilledOrders />
+      </Goal2SellOrder>
+      <CreationTime>2018-06-07T13:05:23.4948172+02:00</CreationTime>
+      <LastChangedTime xsi:nil="true" />
+      <Leftovers>8.77122</Leftovers>
+      <BuyPrice>0</BuyPrice>
+      <Sell1Perc>0.01</Sell1Perc>
+      <Sell2Perc>0.02</Sell2Perc>
+      <SellStopLossPerc>0.1</SellStopLossPerc>
     </Deal>
   </Deals>
 </DealDb>

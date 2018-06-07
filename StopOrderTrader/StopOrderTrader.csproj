@@ -58,8 +58,20 @@
     <Reference Include="Binance.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Binance.Net.3.1.5\lib\netstandard2.0\Binance.Net.dll</HintPath>
     </Reference>
+    <Reference Include="CalcBinding, Version=2.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CalcBinding.2.3.0.1\lib\net45\CalcBinding.dll</HintPath>
+    </Reference>
     <Reference Include="CryptoExchange.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CryptoExchange.Net.0.0.25\lib\netstandard2.0\CryptoExchange.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicExpresso.Core, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicExpresso.Core.1.3.0.0\lib\net40\DynamicExpresso.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -116,6 +128,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdjustStrategyWindow.xaml.cs">
+      <DependentUpon>AdjustStrategyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DealDetailWindow.xaml.cs">
       <DependentUpon>DealDetailWindow.xaml</DependentUpon>
     </Compile>
@@ -130,14 +145,24 @@
     <Compile Include="Indicators\MA.cs" />
     <Compile Include="Lib\EasyFileSerializer.cs" />
     <Compile Include="Lib\Algorithm.cs" />
-    <Compile Include="Store\DealDB.cs" />
+    <Compile Include="Store\AccountDb.cs" />
+    <Compile Include="Store\DealDb.cs" />
     <Compile Include="Toolbox.cs" />
+    <Compile Include="Trading\BinanceErrorJSON.cs" />
+    <Compile Include="Trading\CoinInfo.cs" />
+    <Compile Include="Trading\CoinMarketCap.cs" />
+    <Compile Include="Trading\CryptoCompare.cs" />
     <Compile Include="Trading\Deal.cs" />
+    <Compile Include="Trading\DealHandlerXT.cs" />
     <Compile Include="Trading\StateMachine.cs" />
     <Compile Include="Trading\TradeInterface.cs" />
     <Compile Include="WaitWindow.xaml.cs">
       <DependentUpon>WaitWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdjustStrategyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DealDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +198,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="XAML\_roundButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -192,6 +222,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="bin\Debug\Store\accountdb.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,14 +236,10 @@
     <Resource Include="Resources\house-key.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\loading.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\loading.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -225,6 +252,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\Store\dealdb.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

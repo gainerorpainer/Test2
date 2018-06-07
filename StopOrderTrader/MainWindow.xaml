@@ -5,77 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StopOrderTrader"
         mc:Ignorable="d"
-        Title="Main" Height="362" Width="525" Icon="Resources/favicon.ico" WindowState="Maximized">
+        Title="Main" Height="362" Width="971.959" Icon="Resources/favicon.ico" WindowState="Maximized">
+
     <Window.DataContext>
         <local:MainWindowModel />
     </Window.DataContext>
 
     <Window.Resources>
-        <Style TargetType="Separator">
-            <Setter Property="Margin" Value="1" />
-        </Style>
-
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Margin" Value="3" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid x:Name="grid">
-                            <Border x:Name="border" CornerRadius="8" BorderBrush="Black" BorderThickness="1">
-                                <Border.Background>
-                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
-                                        <RadialGradientBrush.RelativeTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
-                                                        ScaleX="1.5" ScaleY="1.5"/>
-                                                <TranslateTransform X="0.02" Y="0.3"/>
-                                            </TransformGroup>
-                                        </RadialGradientBrush.RelativeTransform>
-                                        <GradientStop Offset="1" Color="#00000000"/>
-                                        <GradientStop Offset="0.3" Color="#FFFFFFFF"/>
-                                    </RadialGradientBrush>
-                                </Border.Background>
-                                <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          TextElement.FontWeight="Bold">
-                                </ContentPresenter>
-                            </Border>
-
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="border">
-                                    <Setter.Value>
-                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
-                                            <RadialGradientBrush.RelativeTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
-                                                    <TranslateTransform X="0.02" Y="0.3"/>
-                                                </TransformGroup>
-                                            </RadialGradientBrush.RelativeTransform>
-                                            <GradientStop Color="#00000000" Offset="1"/>
-                                            <GradientStop Color="#FF303030" Offset="0.3"/>
-                                        </RadialGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FF33962B"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="XAML/_roundButtons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
-    
+
     <Grid Margin="3">
         <Grid.Background>
             <RadialGradientBrush>
@@ -84,36 +27,30 @@
             </RadialGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <!--Left Indicators-->
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Button Content="Refresh Orders" Command="{Binding RefreshOrder}" />
+        <WrapPanel Grid.Row="0" Grid.Column="0" Margin="3">
             <Button Content="Run State Machine" Command="{Binding RunStateMachine}" />
             <Button Content="Generate Deal" Command="{Binding GenerateDeal}" />
-        </StackPanel>
-        
+            <Button Content="Refresh Open Orders" Command="{Binding RefreshOrder}" />
+            <Button Content="Dedust Leftovers" Command="{Binding DedustLeftovers}" />
+            <Button Content="Archive deals" Command="{Binding ArchiveDeals}" />
+        </WrapPanel>
+
         <!--Account data-->
-        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="3">
             <TextBlock>
                 <TextBlock.Text>
-                    <MultiBinding StringFormat="{}BTC total:      {0:F4} ({1:F2} $)">
-                        <Binding Path="TotalBTC"/>
-                        <Binding Path="TotalBTC_To_USDT" />
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <TextBlock>
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}BTC free:       {0:F4} ({1:F2} $)">
+                    <MultiBinding StringFormat="{}BTC free:         {0:0.#####} ({1:0.##} $)">
                         <Binding Path="FreeBTC"/>
                         <Binding Path="FreeBTC_To_USDT" />
                     </MultiBinding>
@@ -121,22 +58,42 @@
             </TextBlock>
             <TextBlock>
                 <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Wallet total:  {0:F4} ({1:F2} $)">
+                    <MultiBinding StringFormat="{}BTC total:        {0:0.#####} ({1:0.##} $)">
+                        <Binding Path="TotalBTC"/>
+                        <Binding Path="TotalBTC_To_USDT" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}Wallet worth:  {0:0.#####} ({1:0.##} $)">
                         <Binding Path="TotalWalletBTC"/>
                         <Binding Path="TotalWallet_To_USDT" />
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
+            <TextBlock Text="(Small amounts will be truncated)" FontStyle="Italic" FontWeight="Light"/>
         </StackPanel>
 
-        <!--Strategy-->
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Deals}" AutoGenerateColumns="True" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick"/>
+        <!--Deals-->
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Label Content="Deals:" />
+            <DataGrid Name="Deals_DataGrid" Margin="3" ItemsSource="{Binding Deals}" AutoGeneratingColumn="Deals_DataGrid_AutoGeneratingColumn" AutoGenerateColumns="True" IsReadOnly="True" MouseDoubleClick="DataGrid_MouseDoubleClick" />
+        </StackPanel>
 
         <!--Splitter-->
-        <GridSplitter Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="5"/>
+        <GridSplitter Margin="3" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="6" >
+            <GridSplitter.Background>
+                <ImageBrush ImageSource="Resources/bar.png" Viewport="0,0,10,10" TileMode="Tile" Stretch="UniformToFill" ViewportUnits="Absolute" />
+            </GridSplitter.Background>
+        </GridSplitter>
 
         <!--Open Orders-->
-        <DataGrid Grid.Row="3" Grid.Column="0" ItemsSource="{Binding Orders}" AutoGeneratingColumn="OnAutoGeneratingColumn" Grid.ColumnSpan="2" IsReadOnly="True"  />
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            <Label Content="Open Orders:" />
+            <DataGrid ItemsSource="{Binding Orders}" AutoGeneratingColumn="OnAutoGeneratingColumn" Grid.ColumnSpan="2" IsReadOnly="True" />
+        </StackPanel>
+        
 
 
     </Grid>

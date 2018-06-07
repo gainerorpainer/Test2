@@ -10,9 +10,12 @@ namespace StopOrderTrader.Trading
 {
     static class StateMachine
     {
-        public static void Run(List<Deal> deals)
+        private const bool PAYFEESINBNB = true;
+        private const decimal FEEMODIFIER = PAYFEESINBNB ? 0.999m : 0.998m;
+
+        public static void Run(IEnumerable<Deal> deals)
         {
-            foreach (var deal in deals)
+            foreach (var deal in deals.Where(x => x.CurrentState != Deal.State.Done))
                 Process(deal);
         }
 
@@ -20,6 +23,9 @@ namespace StopOrderTrader.Trading
         {
             switch (deal.CurrentState)
             {
+                case Deal.State.Done:
+                    return;
+
                 case Deal.State.WaitForBuy:
                     WaitForBuy(deal);
                     break;
@@ -31,36 +37,31 @@ namespace StopOrderTrader.Trading
                 case Deal.State.WaitForGoal2:
                     WaitForGoal2(deal);
                     break;
-
-                case Deal.State.WaitForLeftovers:
-                    WaitForLeftovers(deal);
-                    break;
             }
-        }
 
-        private static void WaitForLeftovers(Deal deal)
-        {
-            // Place immediate order for all leftovers
-            var orders = TradeInterface.PlaceImmediateOrder(deal.Symbol, deal.Leftovers, OrderSide.Sell);
-
-            deal.SelloffLeftovers = orders;
-            deal.Leftovers = 0;
-
-            deal.CurrentState = Deal.State.Done;
-            deal.CurrentResult = Deal.Result.GoalsArchived;
+            // Check panic sell condition
+            decimal price = TradeInterface.Client.GetPrice(deal.Symbol).GetOrThrow().Price.Normalize();
+            decimal panicSellPrice = (deal.BuyPrice * (1 - deal.SellStopLossPerc)).Normalize();
+            if (price < panicSellPrice)
+            {
+                Toolbox.Popup("Panic sell!", $"Your sell condition was met: (price = {price}) < ({panicSellPrice} = price * {1 - deal.SellStopLossPerc:P2}", System.Windows.MessageBoxImage.Exclamation);
+            }
         }
 
         private static void WaitForGoal2(Deal deal)
         {
-            var sellOrder = TradeInterface.GetOrderById(deal.Symbol, deal.SellOrder2.ClientOrderId);
+            var sellOrder = TradeInterface.GetOrderById(deal.Symbol, deal.Goal2SellOrder.ClientOrderId);
             if (OrderWorked(sellOrder))
             {
                 // Download actual order
-                var actualOrder = TradeInterface.GetActualOrder(sellOrder.Symbol, sellOrder.OrderId);
-                deal.SellOrder2.ActualOrderId = actualOrder.OrderId;
+                var actualOrders = TradeInterface.GetActualTrades(sellOrder.Symbol, sellOrder.OrderId);
+                deal.Goal2SellOrder.FilledOrders = actualOrders.Select(x => x.OrderId).ToList();
+
+                deal.Leftovers -= actualOrders.Select(x => x.Quantity).Sum();
 
                 // Set next state
-                deal.CurrentState = Deal.State.WaitForLeftovers;
+                deal.CurrentState = Deal.State.Done;
+                deal.CurrentResult = Deal.Result.GoalsArchived;
             }
             else if (OrderCancelled(sellOrder))
                 StateTransistion_Cancelled(deal);
@@ -68,14 +69,14 @@ namespace StopOrderTrader.Trading
 
         private static void WaitForGoal1(Deal deal)
         {
-            var sellOrder = TradeInterface.GetOrderById(deal.Symbol, deal.SellOrder1.ClientOrderId);
+            var sellOrder = TradeInterface.GetOrderById(deal.Symbol, deal.Goal1SellOrder.ClientOrderId);
             if (OrderWorked(sellOrder))
             {
                 // Download actual order
-                var actualOrder = TradeInterface.GetActualOrder(sellOrder.Symbol, sellOrder.OrderId);
-                deal.SellOrder1.ActualOrderId = actualOrder.OrderId;
+                var actualOrders = TradeInterface.GetActualTrades(sellOrder.Symbol, sellOrder.OrderId);
+                deal.Goal1SellOrder.FilledOrders = actualOrders.Select(x => x.OrderId).ToList();
 
-                deal.Leftovers -= actualOrder.Quantity;
+                deal.Leftovers -= actualOrders.Select(x => x.Quantity).Sum();
 
                 // Set next state
                 deal.CurrentState = Deal.State.WaitForGoal2;
@@ -93,24 +94,25 @@ namespace StopOrderTrader.Trading
             if (OrderWorked(buyOrder))
             {
                 // Download actual order
-                var actualOrder = TradeInterface.GetActualOrder(buyOrder.Symbol, buyOrder.OrderId);
-                deal.BuyOrder.ActualOrderId = actualOrder.OrderId;
+                var actualOrders = TradeInterface.GetActualTrades(buyOrder.Symbol, buyOrder.OrderId);
+                deal.BuyOrder.FilledOrders = actualOrders.Select(x => x.OrderId).ToList();
+
+                decimal quantity = (actualOrders.Sum(x => x.Quantity) * FEEMODIFIER).Normalize();
 
                 // Set leftovers
-                deal.Leftovers = buyOrder.ExecutedQuantity;
+                deal.Leftovers = quantity;
 
                 // Calculate Sell points
-                decimal price = actualOrder.Price;
-                decimal quantity = buyOrder.ExecutedQuantity;
+                decimal price = actualOrders.EffectivePrice();
 
-                // We put 50 % sell on 1 % profit
-                var order1 = TradeInterface.PlaceProfitOrder(deal.Symbol, quantity: quantity * 0.5m, price: price * 1.01m, orderSide: OrderSide.Sell);
+                // We put 50 % sell on 1 % profit 
+                var order1 = TradeInterface.PlaceTakeProfitOrder(deal.Symbol, quantity: quantity * 0.5m, limit: price * (1 + deal.Sell1Perc), orderSide: OrderSide.Sell);
 
                 // And we put another 50 % sell on 2 % profit
-                var order2 = TradeInterface.PlaceProfitOrder(deal.Symbol, quantity: quantity * 0.5m, price: price * 1.02m, orderSide: OrderSide.Sell);
+                var order2 = TradeInterface.PlaceTakeProfitOrder(deal.Symbol, quantity: quantity * 0.5m, limit: price * (1 + deal.Sell2Perc), orderSide: OrderSide.Sell);
 
-                deal.SellOrder1 = new ClientServerOrder() { ClientOrderId = order1.ClientOrderId };
-                deal.SellOrder2 = new ClientServerOrder() { ClientOrderId = order2.ClientOrderId };
+                deal.Goal1SellOrder = new ClientServerOrder() { ClientOrderId = order1.ClientOrderId };
+                deal.Goal2SellOrder = new ClientServerOrder() { ClientOrderId = order2.ClientOrderId };
 
                 // Set next state
                 deal.CurrentState = Deal.State.WaitForGoal1;

@@ -1,0 +1,74 @@
+﻿<Window x:Class="StopOrderTrader.AdjustStrategyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StopOrderTrader"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+        mc:Ignorable="d"
+        Title="AdjustStrategyWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="XAML/_roundButtons.xaml" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:AdjustStrategyWindowModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical"  Margin="3">
+            <StackPanel>
+                <Label Content="{Binding CurrencyInfo.Symbol}" ContentStringFormat="Symbol: {0}"/>
+                <Label Content="{Binding CurrencyInfo.Change24}" ContentStringFormat="Change24: {0:P2}" />
+                <Label Content="{Binding CurrencyInfo.Volume24}" ContentStringFormat="Volume24: {0:C0}" />
+                <Label Content="{Binding CurrencyInfo.MarketCap}" ContentStringFormat="MarketCap: {0:C0}" />
+                <Label Content="{Binding CurrencyInfo.Volatility24h}" ContentStringFormat="Volatility24h: {0:P2}" />
+                <Label Content="{Binding CurrencyInfo.Tension4d}" ContentStringFormat="Tension4d: {0:P2}" />
+                <Label Content="{Binding CurrencyInfo.Trend3m}" ContentStringFormat="Trend3m: {0:P2}" />
+            </StackPanel>
+            
+            <Separator />
+
+            <CheckBox Content="{Binding MarketPrice}" ContentStringFormat="Buy at market price ({0:0.######})"  IsChecked="{Binding IsBuyMarketPrice}" />
+            <Label Content="{Binding BuyPrice}" ContentStringFormat="Buy at '{0:0.######}':" />
+            <Slider Minimum="0" Maximum="{Binding MarketPrice}" Value="{Binding BuyPrice}" MouseDown="Slider_MouseDown" />
+            
+            <Separator />
+            
+            <Label Content="{Binding Sell1Perc}" ContentStringFormat="Sell half if price &gt; buy + '{0:P2}' (=&quot;Sell1&quot;)" />
+            <Slider Minimum="0.001" Maximum="0.1" Value="{Binding Sell1Perc}" />
+            
+            <Separator />
+            
+            <Label Content="{Binding Sell2Perc}" ContentStringFormat="Sell other half if price &gt; buy + '{0:P2}' (=&quot;Sell2&quot;)" />
+            <Slider Minimum="0.001" Maximum="0.1" Value="{Binding Sell2Perc}" />
+            
+            <Separator />
+            
+            <Label Content="{Binding StopLossPerc}" ContentStringFormat="Sell everything if price &lt; buy - '{0:P2}' (=&quot;SellStopLoss&quot;)" />
+            <Slider Minimum="0.001" Maximum="0.2" Value="{Binding StopLossPerc}" />
+        </StackPanel>
+
+        <lvc:CartesianChart Grid.Row="0" Grid.Column="1"  Margin="3" Series="{Binding SeriesCollection}" LegendLocation="Top" AnimationsSpeed="0:0:0.1">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <StackPanel Name="CandleLength_StackPanel" Orientation="Horizontal"  Margin="3" Grid.Row="1" Grid.Column="1" IsEnabled="False">
+            <Label Content="Candle length:" />
+            <ComboBox ItemsSource="{Binding CandleLengthOptions}" SelectedValue="{Binding CandleLength}" IsSynchronizedWithCurrentItem="True" Name="CandleLength_Combobox" />
+        </StackPanel>
+
+    </Grid>
+</Window>

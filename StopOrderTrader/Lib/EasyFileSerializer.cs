@@ -6,39 +6,57 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using System.IO.Compression;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace StopOrderTrader.Lib
 {
-    public abstract class EasyFileSerializer 
+    [Serializable]
+    public abstract class EasyFileSerializer
     {
+        [NonSerialized]
         XmlSerializer _xmlSerializer;
-        string _filePath;
-        DateTime _lastSerialization = DateTime.Now;
 
-        protected EasyFileSerializer(string filepath)
+        [NonSerialized]
+        string _filePath;
+
+        public bool IsCompressed { get; set; }
+
+        protected EasyFileSerializer(string filepath, bool compressed = false)
         {
             _xmlSerializer = new XmlSerializer(GetType());
             _filePath = filepath;
-        }
 
-        internal Task AsyncSerialize()
-        {
-            return Task.Run(() =>
-            {
-                lock (this)
-                {
-                    _lastSerialization = DateTime.Now;
-
-                    // Serialize
-                    using (var fs = File.Create(_filePath))
-                        _xmlSerializer.Serialize(fs, this);
-                }
-            });
+            IsCompressed = compressed;
         }
 
         internal void Serialize()
         {
-            AsyncSerialize().Wait();
+            // Serialize
+            if (!IsCompressed)
+            {
+                using (var fs = File.Create(_filePath))
+                    _xmlSerializer.Serialize(fs, this);
+            }
+            else
+            {
+                using (var fs = File.Create(_filePath))
+                using (var comp = new GZipStream(fs, CompressionMode.Compress))
+                    _xmlSerializer.Serialize(comp, this);
+            }
+        }
+
+        public static T Deserialize<T>(string filepath, bool compressed = false)
+        {
+            if (!compressed)
+                using (var fs = File.OpenRead(filepath))
+                    return (T)new XmlSerializer(typeof(T)).Deserialize(fs);
+            else
+            {
+                using (var fs = File.OpenRead(filepath))
+                using (var comp = new GZipStream(fs, CompressionMode.Decompress))
+                    return (T)new XmlSerializer(typeof(T)).Deserialize(comp);
+            }
         }
     }
 }

@@ -10,14 +10,22 @@ namespace StopOrderTrader.Trading
     public class ClientServerOrder
     {
         public string ClientOrderId { get; set; }
-        public long? ActualOrderId { get; set; }
+        public List<long> FilledOrders { get; set; }
 
-        public override string ToString() => $"{ClientOrderId},{ActualOrderId}";
+        public override string ToString() => FilledOrders?.Count > 0 ? $"Filled: {FilledOrders.Count}" : "Open";
     }
 
     [Serializable]
-    public class Deal_old
+    public class Deal
     {
+        private decimal _leftovers;
+        private decimal _buyPrice;
+        private decimal _sell1Perc;
+        private decimal _sell2Perc;
+        private decimal _sellStopLoss;
+
+        public int Id { get; set; }
+
         public enum State { WaitForBuy, WaitForGoal1, WaitForGoal2, Done }
         public enum Result { NotDoneYet, PanicSell, GoalsArchived, Cancelled }
 
@@ -26,35 +34,18 @@ namespace StopOrderTrader.Trading
         public State CurrentState { get; set; }
         public Result CurrentResult { get; set; }
 
-        public string BuyOrder { get; set; }
-        public string SellOrder1 { get; set; }
-        public string SellOrder2 { get; set; }
-        public string PanicSellOrder { get; set; }
-
-        public DateTime? CreationTime { get; set; }
-        public DateTime? LastChangedTime { get; set; }
-    }
-
-    [Serializable]
-    public class Deal
-    {
-        public enum State { WaitForBuy, WaitForGoal1, WaitForGoal2, WaitForLeftovers, Done }
-        public enum Result { NotDoneYet, PanicSell, GoalsArchived, Cancelled }
-
-        public string Symbol { get; set; }
-
-        public State CurrentState { get; set; }
-        public Result CurrentResult { get; set; }
-
         public ClientServerOrder BuyOrder { get; set; }
-        public ClientServerOrder SellOrder1 { get; set; }
-        public ClientServerOrder SellOrder2 { get; set; }
-        public ClientServerOrder PanicSellOrder { get; set; }
-        public ClientServerOrder SelloffLeftovers { get; set; }
+        public ClientServerOrder Goal1SellOrder { get; set; }
+        public ClientServerOrder Goal2SellOrder { get; set; }
+        public ClientServerOrder OtherSellOrder { get; set; }
 
-        public DateTime? CreationTime { get; set; }
+        public DateTime CreationTime { get; set; }
         public DateTime? LastChangedTime { get; set; }
 
-        public decimal Leftovers { get; set; }
+        public decimal Leftovers { get => _leftovers; set => _leftovers = value.Normalize(); }
+        public decimal BuyPrice { get => _buyPrice; set => _buyPrice = value.Normalize(); }
+        public decimal Sell1Perc { get => _sell1Perc; set => _sell1Perc = value.Normalize(); }
+        public decimal Sell2Perc { get => _sell2Perc; set => _sell2Perc = value.Normalize(); }
+        public decimal SellStopLossPerc { get => _sellStopLoss; set => _sellStopLoss = value.Normalize(); }
     }
 }

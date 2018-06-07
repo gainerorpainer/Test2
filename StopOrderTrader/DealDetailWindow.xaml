@@ -4,43 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StopOrderTrader"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="DealDetailWindow" Height="450" Width="600" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="DealDetailWindow" Height="439.642" Width="1052.302" WindowStyle="SingleBorderWindow" >
     <Window.DataContext>
         <local:DealDetailWindowModel />
     </Window.DataContext>
-    <Border BorderBrush="Black"
-             BorderThickness="1.5"
-             CornerRadius="20" Padding="10">
-        <Border.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#FFE4E4E4"/>
-                <GradientStop Color="#FFD6DFE0" Offset="1"/>
-            </RadialGradientBrush>
-        </Border.Background>
-        <DockPanel Margin="5 3 5 0">
-            <DockPanel DockPanel.Dock="Top">
-                <Label Content="Details..." FontSize="16" FontWeight="Bold" />
-                <Button Content="X" HorizontalAlignment="Right" DockPanel.Dock="Right" Width="20" Height="20" IsCancel="True" Click="Button_Click"/>
-            </DockPanel>
-            <Separator DockPanel.Dock="Top" Margin="0 0 0 10"/>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="XAML/_roundButtons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-                <StackPanel Grid.Column="0">
-                    <Label Content="{Binding BuyAmountBTC}" ContentStringFormat="Buy-Volume (BTC): {0:F5}" />
-                    <Label Content="{Binding BuyPrice}" ContentStringFormat="Buy-Price: {0:F5}" />
-                    <Label Content="{Binding SellPrice1}" ContentStringFormat="50% Sell-Price: {0:F5}" />
-                    <Label Content="{Binding SellPrice2}" ContentStringFormat="100% Sell-Price: {0:F5}" />
-                    <Label Content="{Binding GainBTC}" ContentStringFormat="Gain (BTC): {0:F5}" />
-                    <Label Content="{Binding GainPercent}" ContentStringFormat="Gain (%): {0:P2}" />
-                </StackPanel>
-                <Canvas Grid.Column="1"/>
-            </Grid>
-        </DockPanel>
-    </Border>
+            <Style TargetType="Separator">
+                <Setter Property="Margin" Value="1" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <DockPanel Margin="5 3 5 0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Label Content="{Binding BuyAmountBTC}" ContentStringFormat="Buy-Volume (BTC): {0:0.######}" />
+                <Label Content="{Binding BuyPrice}" ContentStringFormat="Buy-Price: {0:0.######}" />
+                <Label Content="{Binding SellPrice1}" ContentStringFormat="50% Sell-Price: {0:0.######}" />
+                <Label Content="{Binding SellPrice2}" ContentStringFormat="100% Sell-Price: {0:0.######}" />
+                <Label Content="{Binding GainBTC}" ContentStringFormat="Gain (BTC): {0:0.######}" />
+                <Label Content="{Binding GainPercent}" ContentStringFormat="Gain (%): {0:P2}" />
+                <Button Name="CancelAndSell_Button" Content="Cancel and Sell" Command="{Binding CancelAndSell}" IsEnabled="False"/>
+            </StackPanel>
+            
+            <lvc:CartesianChart Grid.Column="2" Series="{Binding SeriesCollection}" LegendLocation="Top">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Labels}"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2">
+                <CheckBox Content="Show until today" IsChecked="{Binding ShowUntilToday}" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

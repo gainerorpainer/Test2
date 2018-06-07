@@ -16,13 +16,15 @@ namespace StopOrderTrader
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             StopOrderTrader.Properties.Settings.Default.Reload();
-            Store.DealDB.Load();
+            Store.DealDb.Load();
+            Store.AccountDb.Load();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             StopOrderTrader.Properties.Settings.Default.Save();
-            Store.DealDB.Save();
+            Store.DealDb.Save();
+            Store.AccountDb.Save();
         }
     }
 }
