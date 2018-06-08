@@ -73,7 +73,7 @@ namespace StopOrderTrader
             }
             catch (BinanceAPIException ex)
             {
-                Popup("API Exception", ex.Message, MessageBoxImage.Error);
+                InfoPopup("API Exception", ex.Message, MessageBoxImage.Error);
             }
 
         }
@@ -87,7 +87,7 @@ namespace StopOrderTrader
             }
             catch (BinanceAPIException ex)
             {
-                Popup("API Exception", ex.Message, MessageBoxImage.Error);
+                InfoPopup("API Exception", ex.Message, MessageBoxImage.Error);
             }
         }
 
@@ -150,7 +150,7 @@ namespace StopOrderTrader
                 txt += Environment.NewLine;
             }
 
-            Popup("Result", txt, MessageBoxImage.Information);
+            InfoPopup("Result", txt, MessageBoxImage.Information);
 
             if (MessageBox.Show("Do you want to reset all leftovers to \"0\"?", "Reset Leftovers?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 foreach (var deal in doneDeals)
@@ -167,7 +167,7 @@ namespace StopOrderTrader
 
             if (selected.Count() == 0)
             {
-                Popup("Info", "You can archive Deals by selecting them in the list and then pressing this button.", MessageBoxImage.Information);
+                InfoPopup("Info", "You can archive Deals by selecting them in the list and then pressing this button.", MessageBoxImage.Information);
                 return;
             }
 
@@ -175,7 +175,7 @@ namespace StopOrderTrader
 
             if (doneDeals.Count() == 0)
             {
-                Popup("Info", "Your selection does not contain any \"done\" deals. No deals were archived", MessageBoxImage.Information);
+                InfoPopup("Info", "Your selection does not contain any \"done\" deals. No deals were archived", MessageBoxImage.Information);
                 return;
             }
 
@@ -242,7 +242,7 @@ namespace StopOrderTrader
             }
             catch (Exception ex)
             {
-                Popup("Setup error", $"Encoutered an error during setup: \"{ex.Message}\"", MessageBoxImage.Error);
+                InfoPopup("Setup error", $"Encoutered an error during setup: \"{ex.Message}\"", MessageBoxImage.Error);
                 return false;
             }
 
@@ -250,14 +250,14 @@ namespace StopOrderTrader
             var timeInfo = TradeInterface.Client.GetServerTime(true);
             if (timeInfo.Fails())
             {
-                Popup("Sync Error", $"Could not sync with Binance server: \"{timeInfo.Error.Message} ({timeInfo.Error.Code})\"", MessageBoxImage.Error);
+                InfoPopup("Sync Error", $"Could not sync with Binance server: \"{timeInfo.Error.Message} ({timeInfo.Error.Code})\"", MessageBoxImage.Error);
                 return false;
             }
 
             var accountInfo = TradeInterface.Client.GetAccountInfo();
             if (accountInfo.Fails())
             {
-                Popup("Login Error", $"Cannot connect to Binance: \"{accountInfo.Error.Message} ({accountInfo.Error.Code})\"", MessageBoxImage.Error);
+                InfoPopup("Login Error", $"Cannot connect to Binance: \"{accountInfo.Error.Message} ({accountInfo.Error.Code})\"", MessageBoxImage.Error);
                 return false;
             }
 

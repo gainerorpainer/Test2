@@ -75,7 +75,7 @@ namespace StopOrderTrader
             }
             catch (BinanceAPIException ex)
             {
-                Popup("Error", ex.Message, MessageBoxImage.Error);
+                InfoPopup("Error", ex.Message, MessageBoxImage.Error);
                 return default(T);
             }
         }
@@ -96,9 +96,14 @@ namespace StopOrderTrader
         /// </summary>
         /// <param name="title"></param>
         /// <param name="text"></param>
-        public static void Popup(string title, string text, MessageBoxImage image)
+        public static void InfoPopup(string title, string text, MessageBoxImage image)
         {
             MessageBox.Show(text, title, MessageBoxButton.OK, image);
+        }
+
+        public static bool ConfirmPopup(string title, string question)
+        {
+            return MessageBoxResult.OK == MessageBox.Show(question, title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace StopOrderTrader.Trading
         public string ClientOrderId { get; set; }
         public List<long> FilledOrders { get; set; }
 
-        public override string ToString() => FilledOrders?.Count > 0 ? $"Filled: {FilledOrders.Count}" : "Open";
+        public override string ToString() => FilledOrders?.Count > 0 ? $"Filled: {FilledOrders.Count}" : "-Pending-";
     }
 
     [Serializable]

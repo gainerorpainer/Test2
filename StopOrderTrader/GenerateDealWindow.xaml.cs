@@ -105,7 +105,7 @@ namespace StopOrderTrader
             // Get all selected deals
             if (Coins_DataGrid.SelectedItems.Count > Model.PossibleDeals)
             {
-                Popup("Too many deals", $"You selected {Coins_DataGrid.SelectedItems.Count}, but you only have funds for {Model.PossibleDeals}", MessageBoxImage.Warning);
+                InfoPopup("Too many deals", $"You selected {Coins_DataGrid.SelectedItems.Count}, but you only have funds for {Model.PossibleDeals}", MessageBoxImage.Warning);
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace StopOrderTrader
                     // make a db entry
                     Store.DealDb.MainInstance.Deals.Add(new Deal()
                     {
-                        Id = Store.DealDb.MainInstance.Deals.Count,
+                        Id = Store.DealDb.GetNewId(),
                         BuyOrder = orderPair,
                         CreationTime = DateTime.Now,
                         CurrentResult = Deal.Result.NotDoneYet,

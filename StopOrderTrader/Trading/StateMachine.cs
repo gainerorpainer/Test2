@@ -44,7 +44,7 @@ namespace StopOrderTrader.Trading
             decimal panicSellPrice = (deal.BuyPrice * (1 - deal.SellStopLossPerc)).Normalize();
             if (price < panicSellPrice)
             {
-                Toolbox.Popup("Panic sell!", $"Your sell condition was met: (price = {price}) < ({panicSellPrice} = price * {1 - deal.SellStopLossPerc:P2}", System.Windows.MessageBoxImage.Exclamation);
+                Toolbox.InfoPopup("Panic sell!", $"Your sell condition was met: (price = {price}) < ({panicSellPrice} = price * {1 - deal.SellStopLossPerc:P2}", System.Windows.MessageBoxImage.Exclamation);
             }
         }
 

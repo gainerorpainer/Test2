@@ -198,6 +198,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="bin\Debug\Store\dealdb.xml" />
     <Resource Include="XAML\_roundButtons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -222,9 +223,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="bin\Debug\Store\accountdb.zip" />
-    <None Include="bin\Debug\Store\accountdb_201805.zip" />
-    <None Include="bin\Debug\Store\accountdb_201806.zip" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -256,15 +254,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\Store\dealdb.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\bar.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\Store\dealdb_20180607_SPEkT.xml" />
-    <Resource Include="bin\Debug\Store\dealdb_20180607_tP4OE.xml" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if not exist $(TargetDir)\Store mkdir $(TargetDir)\Store</PostBuildEvent>

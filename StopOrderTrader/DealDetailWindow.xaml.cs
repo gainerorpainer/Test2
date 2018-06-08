@@ -288,8 +288,16 @@ namespace StopOrderTrader
 
         void CancelAndSellDeal()
         {
-            _deal.CancelAndSell();
-            DialogResult = true;
+            if (Toolbox.ConfirmPopup("Really cancel?", "Do you really want to cancel this order? A 100% market price order will be checked out. This will result in the calculated gain or worse!"))
+            {
+                _deal.CancelAndSell();
+                DialogResult = true;
+            }
+        }
+
+        private void Label_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://coinmarketcap.com/currencies/" + CoinMarketCap.SymbolToWebsiteslug[_deal.Symbol.RemoveLast("BTC".Length)]);
         }
     }
 }

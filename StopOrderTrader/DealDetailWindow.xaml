@@ -42,6 +42,11 @@
                 <Label Content="{Binding GainBTC}" ContentStringFormat="Gain (BTC): {0:0.######}" />
                 <Label Content="{Binding GainPercent}" ContentStringFormat="Gain (%): {0:P2}" />
                 <Button Name="CancelAndSell_Button" Content="Cancel and Sell" Command="{Binding CancelAndSell}" IsEnabled="False"/>
+                <Label Hyperlink.Click="Label_Click" Cursor="Hand">
+                    <Label.Content>
+                        <Hyperlink NavigateUri="http://www.google.com">coinmarketcap.com</Hyperlink>
+                    </Label.Content>
+                </Label>
             </StackPanel>
             
             <lvc:CartesianChart Grid.Column="2" Series="{Binding SeriesCollection}" LegendLocation="Top">

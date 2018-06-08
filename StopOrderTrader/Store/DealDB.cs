@@ -22,7 +22,16 @@ namespace StopOrderTrader.Store
             else
                 MainInstance = Deserialize<DealDb>(DealDbPath);
 
+            // Set deal counter to a reasonable value if you have any
+            int? highestId = MainInstance.Deals.LastOrDefault()?.Id;
+            if (highestId >= Properties.Settings.Default.NextDealId)
+                Properties.Settings.Default.NextDealId = (highestId ?? -1) + 1;
             //TransformFromOld();
+        }
+
+        internal static int GetNewId()
+        {
+            return Properties.Settings.Default.NextDealId++;
         }
 
         public static void Save() => MainInstance.Serialize();
@@ -80,5 +89,6 @@ namespace StopOrderTrader.Store
 
             Save();
         }
+
     }
 }
